@@ -16,6 +16,7 @@ def b(t): B.append(('b', t))
 def cap(t): B.append(('cap', t))
 def tbl(head, rows, widths): B.append(('tbl', head, rows, widths))
 def eq(t): B.append(('eq', t))
+def img(f, c, w=16): B.append(('img', f, c, w))
 
 # ---------------------------------------------------------------- THÔNG TIN CHUNG
 h1("THÔNG TIN CHUNG VỀ ĐỀ TÀI")
@@ -53,8 +54,9 @@ h3("2.1.1. So khớp tên và liên kết bản ghi")
 p("Bài toán so khớp tên trong sàng lọc cấm vận là một trường hợp riêng của bài toán liên kết bản ghi (record linkage), "
   "có nền tảng lý thuyết xác suất do Fellegi và Sunter xây dựng [1]. Theo mô hình này, mỗi cặp bản ghi được so sánh trên nhiều "
   "thuộc tính, các kết quả so sánh được tổng hợp thành trọng số và cặp bản ghi được phân loại thành khớp, không khớp hoặc cần xem xét "
-  "thủ công dựa trên hai ngưỡng. Cách tiếp cận ba vùng quyết định này tương ứng trực tiếp với cách các hệ thống sàng lọc thương mại "
+  "thủ công dựa trên hai ngưỡng (Hình 1). Cách tiếp cận ba vùng quyết định này tương ứng trực tiếp với cách các hệ thống sàng lọc thương mại "
   "phân loại kết quả thành tự động bỏ qua, cảnh báo hoặc chặn.")
+img("h2_vungquyetdinh.png", "Hình 1. Ba vùng quyết định theo mô hình Fellegi-Sunter áp dụng trong sàng lọc cấm vận", 15)
 p("Winkler [2] phát triển độ đo Jaro-Winkler, ưu tiên các chuỗi có phần đầu giống nhau, phù hợp với chuỗi ngắn như họ tên và được "
   "Cục Điều tra Dân số Hoa Kỳ sử dụng trong thực tế. Cohen và cộng sự [3] so sánh có hệ thống các nhóm độ đo khoảng cách chuỗi gồm "
   "độ đo dựa trên chỉnh sửa (Levenshtein), độ đo heuristic (Jaro, Jaro-Winkler), độ đo dựa trên từ (TF-IDF, Jaccard) và các phương pháp lai; "
@@ -84,7 +86,8 @@ p("Khuyến nghị 6 và 7 của FATF yêu cầu các quốc gia thực thi bi�
   "và quản lý danh sách; hướng dẫn nhấn mạnh việc đánh giá hiệu quả hệ thống bằng kiểm thử có kiểm soát thay vì chỉ dựa vào cấu hình mặc định.")
 p("Về học thuật, phần lớn nghiên cứu về học máy cho phòng, chống rửa tiền tập trung vào giám sát giao dịch đáng ngờ [14], [15], [16]. "
   "Mảng sàng lọc cấm vận chủ yếu phát triển trong các sản phẩm thương mại như Oracle EDQ, LexisNexis Firco, SAS và NICE Actimize, "
-  "với rất ít công bố định lượng về hiệu quả cấu hình quy tắc.")
+  "với rất ít công bố định lượng về hiệu quả cấu hình quy tắc. Hình 2 mô tả quy trình sàng lọc điển hình và các bước mà đề tài tập trung tối ưu.")
+img("h1_quytrinh.png", "Hình 2. Quy trình sàng lọc cấm vận giao dịch SWIFT và phạm vi tác động của đề tài", 16)
 h3("2.1.4. Chuyển đổi chuẩn ISO 20022")
 p("SWIFT đã kết thúc giai đoạn song song giữa điện MT và điện ISO 20022 (MX) đối với điện thanh toán xuyên biên giới vào ngày 22/11/2025 [17]. "
   "Điện MX (pacs.008, pacs.009) có cấu trúc chi tiết hơn: tên, địa chỉ được tách thành các trường riêng như tên đường, số nhà, thành phố, "
@@ -112,7 +115,7 @@ p("Theo Quy chế đặt tên, đổi tên đường, phố và công trình cô
   "Nguyễn Văn Cừ. Về hình thức, các tên đường này không khác gì tên của một cá nhân.")
 p("Trong điện SWIFT MT, thông tin người chuyển (trường 50K) và người hưởng (trường 59) gồm tối đa bốn dòng, mỗi dòng 35 ký tự, trong đó tên và địa chỉ "
   "được ghi liên tiếp dưới dạng văn bản tự do. Khi hệ thống sàng lọc quét toàn bộ nội dung trường này, một dòng địa chỉ như \"12 PHAM HUNG, NAM TU LIEM\" "
-  "có thể khớp với một đối tượng trong danh sách có họ tên tương tự, dù khách hàng không liên quan. Bảng 1 minh họa cơ chế phát sinh cảnh báo sai này "
+  "có thể khớp với một đối tượng trong danh sách có họ tên tương tự, dù khách hàng không liên quan. Bảng 1 và Hình 3 minh họa cơ chế phát sinh cảnh báo sai này "
   "(các tên trong bảng là ví dụ giả định, không phải đối tượng có thật trong danh sách cấm vận).")
 cap("Bảng 1. Minh họa cảnh báo sai do tên đường trùng tên người trong điện MT103")
 tbl(["Nội dung trường 59 (người hưởng)", "Mục giả định trong danh sách", "Nguyên nhân khớp"], [
@@ -123,11 +126,12 @@ tbl(["Nội dung trường 59 (người hưởng)", "Mục giả định trong d
 p("Hướng xử lý được đề tài nghiên cứu gồm: nhận diện phần địa chỉ trong trường văn bản tự do dựa trên dấu hiệu số nhà, từ khóa địa giới hành chính "
   "(PHUONG, QUAN, HUYEN, TP, HA NOI...) và từ điển tên đường; giảm trọng số hoặc loại trừ phần địa chỉ khỏi so khớp tên cá nhân; và đối với điện MX, "
   "chỉ so khớp tên trên trường tên, so khớp địa chỉ trên trường địa chỉ có cấu trúc.")
+img("h3_mt103.png", "Hình 3. Cơ chế khớp nhầm do tên đường trùng tên người trong trường 59 của điện MT103 (ví dụ giả định)", 15.5)
 
 h3("2.3.2. Dấu tiếng Việt và hiện tượng trùng tên khi bỏ dấu")
 p("Tiếng Việt có 29 chữ cái và 6 thanh điệu, sử dụng các dấu phụ để phân biệt nguyên âm (ă, â, ê, ô, ơ, ư), phụ âm (đ) và thanh điệu. Trong khi đó, "
   "tập ký tự của điện SWIFT MT (tập ký tự X) chỉ gồm chữ Latinh không dấu, chữ số và một số ký hiệu, nên tên khách hàng bắt buộc phải bỏ dấu khi đưa vào điện. "
-  "Các danh sách cấm vận quốc tế cũng ghi tên bằng chữ Latinh không dấu. Khi bỏ dấu, nhiều tên vốn khác nhau trở thành một chuỗi duy nhất, như minh họa ở Bảng 2.")
+  "Các danh sách cấm vận quốc tế cũng ghi tên bằng chữ Latinh không dấu. Khi bỏ dấu, nhiều tên vốn khác nhau trở thành một chuỗi duy nhất, như minh họa ở Bảng 2 và Hình 4.")
 cap("Bảng 2. Một số nhóm tên tiếng Việt trùng nhau sau khi bỏ dấu")
 tbl(["Dạng có dấu", "Dạng không dấu"], [
     ["Hưng, Hùng, Hứng, Hừng", "HUNG"],
@@ -143,10 +147,11 @@ p("Hệ quả là một khách hàng tên Nguyễn Văn Hưng và một đối t
   "tỷ lệ va chạm khi bỏ dấu trên mẫu dữ liệu khách hàng (số tên có dấu khác nhau cùng ánh xạ về một chuỗi không dấu) và đánh giá các chiến lược: "
   "so khớp trên tên có dấu khi cả hai phía có dấu (sàng lọc khách hàng nội bộ); bổ sung thuộc tính phụ như năm sinh, quốc tịch để phân biệt khi tên trùng; "
   "và điều chỉnh trọng số của các tên có tần suất cao.")
+img("h4_bodau.png", "Hình 4. Nhiều tên tiếng Việt có dấu trở thành một chuỗi không dấu", 14.5)
 
 h3("2.3.3. Phân bố họ người Việt rất lệch")
 p("Họ người Việt tập trung vào một số ít họ lớn. Theo nghiên cứu của Lê Trung Hoa [22], họ Nguyễn chiếm khoảng 38,4% dân số, tiếp theo là họ Trần (12,1%), "
-  "họ Lê (9,5%) và họ Phạm (7,0%); bốn họ này chiếm khoảng 67% dân số. Ấn phẩm 100 họ phổ biến ở Việt Nam (Nhà xuất bản Khoa học Xã hội, 2022) [23] "
+  "họ Lê (9,5%) và họ Phạm (7,0%); bốn họ này (Hình 5) chiếm khoảng 67% dân số. Ấn phẩm 100 họ phổ biến ở Việt Nam (Nhà xuất bản Khoa học Xã hội, 2022) [23] "
   "đưa ra con số thấp hơn, khoảng 31,5% dân số mang họ Nguyễn. Cần lưu ý rằng đây là số liệu từ các nghiên cứu và mẫu thống kê dân cư; cơ quan nhà nước "
   "chưa công bố thống kê chính thức về tỷ lệ các họ trên phạm vi toàn quốc. Đề tài sẽ đo phân bố thực tế trên mẫu 10 triệu khách hàng để đối chiếu.")
 cap("Bảng 3. Tỷ lệ một số họ phổ biến của người Việt")
@@ -157,6 +162,7 @@ tbl(["Họ", "Tỷ lệ theo Lê Trung Hoa [22]", "Tỷ lệ theo [23]", "Tỷ l
     ["Phạm", "7,0%", "", "(đo trong nội dung 1)"],
     ["Cộng 4 họ", "khoảng 67%", "", "(đo trong nội dung 1)"],
 ], [2000, 2500, 2000, 2500])
+img("h5_ho.png", "Hình 5. Tỷ lệ dân số của bốn họ phổ biến nhất (nguồn: Lê Trung Hoa [22]; cột Các họ khác là phần còn lại)", 13.5)
 p("Trong OEDQ, phân cụm theo họ là một cấu hình phổ biến vì đơn giản và giữ lại được phần lớn các cặp khớp đúng. Tuy nhiên, với phân bố như trên, "
   "cụm họ Nguyễn chứa khoảng một phần ba đến hai phần năm toàn bộ bản ghi khách hàng, trong khi hàng trăm họ khác chỉ có số bản ghi rất nhỏ. Phân bố cụm "
   "không đều dẫn đến hai hệ quả: thời gian xử lý tập trung vào một số cụm lớn, làm giảm hiệu quả xử lý song song; và trong các cụm lớn, số cặp so sánh "
@@ -220,7 +226,7 @@ h3("4.2.2. Danh sách cấm vận")
 p("Các danh sách cấm vận công khai nêu tại mục 4.1 được thu thập ở định dạng XML hoặc CSV, hợp nhất về một cấu trúc chung gồm tên chính, các bí danh, loại thực thể, "
   "quốc tịch, ngày sinh và địa chỉ. Danh sách đang được sử dụng trong hệ thống của MB được dùng làm đối chứng để bảo đảm thực nghiệm phản ánh đúng điều kiện vận hành.")
 h3("4.2.3. Bộ dữ liệu kiểm thử có gán nhãn")
-p("Do không có sẵn nhãn khớp hoặc không khớp cho dữ liệu thực, đề tài xây dựng bộ dữ liệu kiểm thử theo phương pháp chèn mẫu dương có kiểm soát:")
+p("Do không có sẵn nhãn khớp hoặc không khớp cho dữ liệu thực, đề tài xây dựng bộ dữ liệu kiểm thử theo phương pháp chèn mẫu dương có kiểm soát (Hình 6):")
 b("Mẫu âm: các bản ghi khách hàng trong mẫu 10 triệu, sau khi đã loại các bản ghi từng được chuyên viên xác nhận là trùng khớp thật (nếu có), được xem là không khớp. Mọi cảnh báo phát sinh trên mẫu âm là cảnh báo sai.")
 b("Mẫu dương: tên các đối tượng trong danh sách cấm vận được biến đổi theo phân loại lỗi trong hướng dẫn của Wolfsberg [13] (Bảng 5), sau đó chèn vào trường tên kèm một địa chỉ lấy ngẫu nhiên từ mẫu khách hàng. Hệ thống phải phát hiện được các bản ghi này.")
 b("Điện thanh toán: từ các bản ghi trên, đề tài sinh điện MT103, MT202 (trường 50K, 59, 52A, 57A, 70) và pacs.008, pacs.009 theo đúng quy định độ dài dòng và tập ký tự, trong đó điện MT ghép tên với địa chỉ dạng văn bản tự do, điện MX tách tên và địa chỉ thành các trường có cấu trúc.")
@@ -234,6 +240,7 @@ tbl(["Dạng biến thể", "Ví dụ (từ tên gốc giả định NGUYEN VAN 
     ["Cắt cụt do giới hạn 35 ký tự mỗi dòng", "Tên tổ chức dài bị ngắt sang dòng sau"],
     ["Thêm danh xưng, ký tự đặc biệt", "MR NGUYEN VAN HUNG, NGUYEN-VAN-HUNG"],
 ], [4000, 5000])
+img("h6_dulieu.png", "Hình 6. Quy trình xây dựng dữ liệu kiểm thử và thực nghiệm", 16)
 h3("4.2.4. Bảo vệ dữ liệu cá nhân và tuân thủ")
 p("Việc xử lý dữ liệu tuân thủ Luật Bảo vệ dữ liệu cá nhân số 91/2025/QH15 [25] và Nghị định 356/2025/NĐ-CP [26] cùng quy định nội bộ của MB. Cụ thể: "
   "việc lấy mẫu và hoán đổi địa chỉ do bộ phận quản lý dữ liệu của ngân hàng thực hiện; toàn bộ thực nghiệm diễn ra trong môi trường của ngân hàng, dữ liệu không được "
@@ -325,6 +332,8 @@ tbl(["TT", "Tên thiết bị", "Mục đích sử dụng", "Cơ quan quản lý
 
 # ---------------------------------------------------------------- 6. KẾ HOẠCH
 h1("6. KẾ HOẠCH TRIỂN KHAI")
+p("Tiến độ thực hiện các nội dung nghiên cứu được tóm tắt ở Hình 7 và chi tiết ở Bảng 9.")
+img("h7_gantt.png", "Hình 7. Tiến độ thực hiện các nội dung nghiên cứu trong 06 tháng", 16)
 cap("Bảng 9. Kế hoạch thực hiện trong 06 tháng")
 tbl(["STT", "Nội dung, công việc", "Thời gian", "Người thực hiện", "Kết quả, sản phẩm"], [
     ["1", "Nội dung 1: Khảo sát hiện trạng, phân tích đặc trưng dữ liệu", "T1", "Chủ nhiệm", "Báo cáo hiện trạng, số liệu đặc trưng"],

@@ -52,6 +52,23 @@ def TBL(head,rows,w):
     tr=lambda cells,hdr=False: '<w:tr>'+('<w:trPr><w:cantSplit/><w:tblHeader/></w:trPr>' if hdr else '<w:trPr><w:cantSplit/></w:trPr>')+''.join(cell(c,v,hdr) for c,v in zip(cells,w))+'</w:tr>'
     return f'<w:tbl><w:tblPr><w:tblW w:w="{tw}" w:type="dxa"/><w:jc w:val="center"/>{bd}<w:tblLayout w:type="fixed"/><w:tblCellMar><w:left w:w="80" w:type="dxa"/><w:right w:w="80" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>{g}</w:tblGrid>{tr(head,True)}{"".join(tr(r) for r in rows)}</w:tbl>'+para('',after=0,line=240)
 PB='<w:p><w:r><w:br w:type="page"/></w:r></w:p>'
+import os, shutil
+from PIL import Image as _Im
+WD=os.path.dirname(DOC); FIG=os.path.join(os.path.dirname(sys.argv[2].rstrip('/')),'fig')
+RELS=os.path.join(WD,'_rels','document.xml.rels'); rels=open(RELS,encoding='utf8').read(); nimg=[0]
+def IMG(f,cap,wcm):
+    global rels
+    nimg[0]+=1; n=nimg[0]; rid=f'rIdFig{n}'; tgt=f'media/fig{n}.png'
+    shutil.copy(os.path.join(FIG,f),os.path.join(WD,tgt))
+    rels=rels.replace('</Relationships>',f'<Relationship Id="{rid}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="{tgt}"/></Relationships>')
+    W,H=_Im.open(os.path.join(FIG,f)).size; cx=int(wcm*360000); cy=int(cx*H/W)
+    d=(f'<w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="{cx}" cy="{cy}"/><wp:docPr id="{5000+n}" name="Hinh {n}"/>'
+       f'<wp:cNvGraphicFramePr><a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/></wp:cNvGraphicFramePr>'
+       f'<a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">'
+       f'<pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:nvPicPr><pic:cNvPr id="{5000+n}" name="fig{n}.png"/><pic:cNvPicPr/></pic:nvPicPr>'
+       f'<pic:blipFill><a:blip r:embed="{rid}"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill>'
+       f'<pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="{cx}" cy="{cy}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>')
+    return para(d,jc='center',before=120,after=40,line=240,keep=True)+para(run(cap,sz=24,i=True),jc='center',before=0,after=160)
 
 out=[]; toc=[]
 for blk in K.B:
@@ -67,6 +84,7 @@ for blk in K.B:
     elif k=='eq': out.append(EQ(blk[1]))
     elif k=='kw': out.append(para(run('Từ khóa: ',b=True,i=True)+run(blk[1],i=True),ind='<w:ind w:firstLine="567"/>'))
     elif k=='tbl': out.append(TBL(blk[1],blk[2],blk[3]))
+    elif k=='img': out.append(IMG(blk[1],blk[2],blk[3]))
 out.append(PB); xml,name=H('TÀI LIỆU THAM KHẢO',1); out.append(xml); toc.append((1,'TÀI LIỆU THAM KHẢO',name))
 for i,r in enumerate(K.REFS,1): out.append(para(run(f'[{i}] '+r),ind='<w:ind w:left="567" w:hanging="567"/>'))
 
@@ -80,6 +98,6 @@ for n,(lvl,t,name) in enumerate(toc):
     c=begin+f'<w:hyperlink w:anchor="{name}" w:history="1">'+run(t,sz=26,b=(lvl==1))+f'<w:r>{rpr()}<w:tab/></w:r>'+run(pg,sz=26,b=(lvl==1))+'</w:hyperlink>'+end
     tl.append(para(c,jc='left',after=30,line=252,style=f'TOC{lvl}',ind=f'<w:ind w:left="{0 if lvl==1 else 284}"/>',extra='').replace('<w:pPr>','<w:pPr>'+'' ,1).replace('<w:jc w:val="left"/>','<w:jc w:val="left"/>'+'',1).replace(f'<w:pStyle w:val="TOC{lvl}"/>',f'<w:pStyle w:val="TOC{lvl}"/>{TAB}'))
 newbody=cover+PB+''.join(tl)+PB+''.join(out)+sect+'</w:body></w:document>'
-open(DOC,'w',encoding='utf8').write(head+newbody)
+open(DOC,'w',encoding='utf8').write(head+newbody); open(RELS,'w',encoding='utf8').write(rels)
 json.dump([(n,t) for _,t,n in toc],open(sys.argv[2]+'/toc.json','w'),ensure_ascii=False)
 print('ok', len(toc))
