@@ -7,10 +7,16 @@
 - Người hướng dẫn: TS. Đỗ Trung Anh
 - Nơi công tác, nơi áp dụng: Ngân hàng Thương mại Cổ phần Quân đội (MB)
 
-## Đề tài
-Nghiên cứu tối ưu hóa quy tắc làm sạch, chuẩn hóa và so khớp mờ nhằm giảm cảnh báo sai
-trong hệ thống sàng lọc cấm vận giao dịch thanh toán quốc tế qua mạng SWIFT:
-thực nghiệm trên nền tảng Oracle Enterprise Data Quality.
+## Đề tài (tên rút gọn, dùng từ bản hoàn chỉnh)
+Tối ưu hóa quy tắc so khớp nhằm giảm cảnh báo sai trong sàng lọc cấm vận
+giao dịch SWIFT tại Ngân hàng TMCP Quân đội.
+- Thời gian thực hiện: 06 tháng.
+- Đặc thù tên, địa chỉ người Việt cần xử lý: tên đường theo tên danh nhân (điện SWIFT ghép tên + địa chỉ);
+  trùng tên khi bỏ dấu (Hưng = Hùng = HUNG); họ phân bố lệch (Nguyễn 38,4% theo Lê Trung Hoa 2005,
+  khoảng 31,5% theo "100 họ phổ biến ở Việt Nam" 2022) làm cụm theo họ không đều.
+- Dữ liệu: mẫu ngẫu nhiên 10 triệu tên và địa chỉ khách hàng MB, địa chỉ hoán đổi ngẫu nhiên giữa
+  các bản ghi, không có thông tin định danh nào khác.
+- Trang bìa theo mẫu `src/Mau_trang_bia.docx`; cấu trúc nội dung theo mẫu NAFOSTED 02.
 
 ## Quy ước trình bày
 - Văn phong học thuật tiếng Việt, xưng "học viên".
@@ -20,6 +26,7 @@ thực nghiệm trên nền tảng Oracle Enterprise Data Quality.
   Thông tư 27/2025/TT-NHNN (thay thế Thông tư 09/2023/TT-NHNN), Nghị định 81/2019/NĐ-CP.
 
 ## Tệp
+- `../Bai_nghien_cuu_hoan_chinh_Nguyen_Van_Phe.docx`: bản nghiên cứu hoàn chỉnh (bản chính).
 - `../Thuyet_minh_NAFOSTED_Sanctions_Screening.docx`: thuyết minh theo mẫu NAFOSTED 02.
 - `../De_xuat_huong_nghien_cuu_Nguyen_Van_Phe.docx`: bản đề xuất 2 trang gửi thầy.
 - `src/`: mẫu gốc và mã sinh tài liệu (content.py chứa nội dung thuyết minh).
