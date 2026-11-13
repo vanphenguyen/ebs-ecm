@@ -1,7 +1,7 @@
 # Ghi chú luận văn thạc sĩ
 
 ## Thông tin chung
-- Học viên: Nguyễn Văn Phê, mã học viên B26CHHT080
+- Học viên: Nguyễn Văn Phê, mã học viên B26CHHT080, lớp M26CQHT02-B
 - Chuyên ngành: Hệ thống thông tin
 - Cơ sở đào tạo: Học viện Công nghệ Bưu chính Viễn thông
 - Người hướng dẫn: TS. Đỗ Trung Anh

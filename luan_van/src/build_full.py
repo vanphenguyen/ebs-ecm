@@ -18,13 +18,18 @@ cover=sub_t(cover,'Nguyễn Ngọc Điệp','Đỗ Trung Anh')
 cover=sub_t(cover,'   Học viên: Nghiêm Quốc Việt','   Học viên: Nguyễn Văn Phê')
 cover=sub_t(cover,' – ',' - ')
 cover=sub_t(cover,'B24CHHT100','B26CHHT080')
-cover=sub_t(cover,'M24CQHT02-B','..........')
+cover=sub_t(cover,'M24CQHT02-B','M26CQHT02-B')
 cover=sub_t(cover,'Hà Nội - 2025','Hà Nội - 2026')
 ps=re.findall(r'<w:p[ >].*?</w:p>',cover,re.S)
 empty=re.sub(r'<w:r[ >].*?</w:r>','',ps[12])
 for p in ps:
     t=''.join(re.findall(r'<w:t[^>]*>([^<]*)</w:t>',p))
-    if 'Đàm Văn Trung' in t or 'Mai Việt Hùng' in t: cover=cover.replace(p,empty,1)
+    if 'Đàm Văn Trung' in t or 'Mai Việt Hùng' in t: cover=cover.replace(p,'',1)
+lop=[p for p in re.findall(r'<w:p[ >].*?</w:p>',cover,re.S) if 'M26CQHT02-B' in p][0]
+hv=[p for p in re.findall(r'<w:p[ >].*?</w:p>',cover,re.S) if 'Học viên: ' in p][0]
+lop_new=re.sub(r'<w:t xml:space="preserve">\s*Lớp: </w:t>','<w:t xml:space="preserve">   Lớp: </w:t>',lop)
+lop_new=re.sub(r'<w:pPr>.*?</w:pPr>',re.search(r'<w:pPr>.*?</w:pPr>',hv,re.S).group(0),lop_new,count=1,flags=re.S)
+cover=cover.replace(lop,lop_new+empty+empty,1)
 
 F='<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman"/>'
 def rpr(sz=26,b=False,i=False): return f'<w:rPr>{F}{"<w:b/><w:bCs/>" if b else ""}{"<w:i/><w:iCs/>" if i else ""}<w:color w:val="000000"/><w:sz w:val="{sz}"/><w:szCs w:val="{sz}"/><w:lang w:val="vi-VN"/></w:rPr>'
