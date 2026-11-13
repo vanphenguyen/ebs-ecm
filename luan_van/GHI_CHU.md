@@ -29,7 +29,7 @@ cấm vận giao dịch thanh toán quốc tế tại ngân hàng thương mại
   Thông tư 27/2025/TT-NHNN (thay thế Thông tư 09/2023/TT-NHNN), Nghị định 81/2019/NĐ-CP.
 
 ## Tệp
-- `../Bai_nghien_cuu_hoan_chinh_Nguyen_Van_Phe.docx`: bản nghiên cứu hoàn chỉnh (bản chính).
+- `../NguyenVanPhe_B26CHHT080_BaoCaoCuoiKy_PPNCKH.docx`: báo cáo cuối kỳ môn PPNCKH, bản nghiên cứu hoàn chỉnh (bản chính).
 - `../Thuyet_minh_NAFOSTED_Sanctions_Screening.docx`: thuyết minh theo mẫu NAFOSTED 02.
 - `../De_xuat_huong_nghien_cuu_Nguyen_Van_Phe.docx`: bản đề xuất 2 trang gửi thầy.
 - `src/`: mẫu gốc và mã sinh tài liệu (content.py chứa nội dung thuyết minh).
