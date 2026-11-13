@@ -7,9 +7,12 @@
 - Người hướng dẫn: TS. Đỗ Trung Anh
 - Nơi công tác, nơi áp dụng: Ngân hàng Thương mại Cổ phần Quân đội (MB)
 
-## Đề tài (tên rút gọn, dùng từ bản hoàn chỉnh)
-Tối ưu hóa quy tắc so khớp nhằm giảm cảnh báo sai trong sàng lọc cấm vận
-giao dịch SWIFT tại Ngân hàng TMCP Quân đội.
+## Đề tài (tên hiện hành)
+Nghiên cứu giải pháp chuẩn hóa dữ liệu và so khớp tên nhằm giảm cảnh báo sai trong sàng lọc
+cấm vận giao dịch thanh toán quốc tế tại ngân hàng thương mại Việt Nam.
+- Tên tiếng Anh: Data standardization and name matching solutions for reducing false positives
+  in sanctions screening of international payments at Vietnamese commercial banks.
+- MB là đơn vị phối hợp, nơi thử nghiệm và đánh giá (không đưa vào tên đề tài).
 - Thời gian thực hiện: 06 tháng.
 - Đặc thù tên, địa chỉ người Việt cần xử lý: tên đường theo tên danh nhân (điện SWIFT ghép tên + địa chỉ);
   trùng tên khi bỏ dấu (Hưng = Hùng = HUNG); họ phân bố lệch (Nguyễn 38,4% theo Lê Trung Hoa 2005,

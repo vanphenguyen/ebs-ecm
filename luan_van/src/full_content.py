@@ -2,10 +2,10 @@
 # Quy ước: ('h1'|'h2'|'h3', text) tiêu đề; ('p', text) đoạn văn; ('b', text) gạch đầu dòng;
 # ('tbl', [tiêu đề cột], [[ô,...],...], [độ rộng dxa]); ('cap', text) chú thích bảng; ('ref', text); ('eq', text)
 
-TITLE = ("Tối ưu hóa quy tắc so khớp nhằm giảm cảnh báo sai trong sàng lọc cấm vận "
-         "giao dịch SWIFT tại Ngân hàng TMCP Quân đội")
-TITLE_EN = ("Optimizing matching rules to reduce false positives in sanctions screening "
-            "of SWIFT transactions at Military Commercial Joint Stock Bank")
+TITLE = ("Nghiên cứu giải pháp chuẩn hóa dữ liệu và so khớp tên nhằm giảm cảnh báo sai "
+         "trong sàng lọc cấm vận giao dịch thanh toán quốc tế tại ngân hàng thương mại Việt Nam")
+TITLE_EN = ("Data standardization and name matching solutions for reducing false positives "
+            "in sanctions screening of international payments at Vietnamese commercial banks")
 
 B = []
 def h1(t): B.append(('h1', t))
@@ -26,7 +26,7 @@ tbl(["Mục", "Nội dung"], [
     ["Chủ nhiệm đề tài", "Nguyễn Văn Phê, mã học viên B26CHHT080"],
     ["Người hướng dẫn khoa học", "TS. Đỗ Trung Anh"],
     ["Tổ chức chủ trì", "Học viện Công nghệ Bưu chính Viễn thông"],
-    ["Đơn vị phối hợp, áp dụng", "Ngân hàng Thương mại Cổ phần Quân đội (MB)"],
+    ["Đơn vị phối hợp, thử nghiệm", "Ngân hàng Thương mại Cổ phần Quân đội (MB)"],
     ["Chuyên ngành", "Hệ thống thông tin"],
     ["Thời gian thực hiện", "06 tháng kể từ ngày đề cương được phê duyệt"],
 ], [2600, 6400])
@@ -186,7 +186,7 @@ p("Về tính mới, đề tài lần đầu phân tích định lượng tác �
 # ---------------------------------------------------------------- 3. MỤC TIÊU
 h1("3. MỤC TIÊU CỦA ĐỀ TÀI")
 h2("3.1. Mục tiêu tổng quát")
-p("Nâng cao hiệu quả hệ thống sàng lọc cấm vận giao dịch SWIFT tại Ngân hàng TMCP Quân đội thông qua tối ưu hóa có cơ sở định lượng các quy tắc làm sạch, "
+p("Đề xuất giải pháp nâng cao hiệu quả hệ thống sàng lọc cấm vận giao dịch thanh toán quốc tế tại các ngân hàng thương mại Việt Nam, được thử nghiệm và đánh giá tại Ngân hàng TMCP Quân đội, thông qua tối ưu hóa có cơ sở định lượng các quy tắc làm sạch, "
   "chuẩn hóa, phân cụm và so khớp trên nền tảng Oracle EDQ, có xét đến đặc thù tên và địa chỉ người Việt.")
 h2("3.2. Mục tiêu cụ thể")
 b("MT1: Phân tích định lượng các đặc thù tên và địa chỉ người Việt trên mẫu 10 triệu khách hàng: phân bố họ, tỷ lệ trùng tên khi bỏ dấu, tỷ lệ địa chỉ chứa tên đường trùng họ tên người.")
