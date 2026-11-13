@@ -121,7 +121,7 @@ for n,(lvl,t,name) in enumerate(toc_h):
     end='<w:r><w:fldChar w:fldCharType="end"/></w:r>' if n==len(toc_h)-1 else ''
     c=begin+f'<w:hyperlink w:anchor="{name}" w:history="1">'+run(t,sz=26,b=(lvl==1))+f'<w:r>{rpr()}<w:tab/></w:r>'+run(pg,sz=26,b=(lvl==1))+'</w:hyperlink>'+end
     tl.append(para(c,jc='left',after=30,line=252,style=f'TOC{lvl}',ind=f'<w:ind w:left="{0 if lvl==1 else 284}"/>',extra='').replace('<w:pPr>','<w:pPr>'+'' ,1).replace('<w:jc w:val="left"/>','<w:jc w:val="left"/>'+'',1).replace(f'<w:pStyle w:val="TOC{lvl}"/>',f'<w:pStyle w:val="TOC{lvl}"/>{TAB}'))
-fm=[PB,para(run('DANH MỤC TỪ VIẾT TẮT',sz=28,b=True),jc='center',after=200),TBL(['Từ viết tắt','Ý nghĩa'],[list(a) for a in K.ABBR],[2000,7000])]
+fm=[PB,para(run('DANH MỤC TỪ VIẾT TẮT VÀ THUẬT NGỮ',sz=28,b=True),jc='center',after=200),TBL(['Từ viết tắt, thuật ngữ','Ý nghĩa'],[list(a) for a in K.ABBR],[2000,7000])]
 for kind,title in (('b','DANH MỤC BẢNG'),('h','DANH MỤC HÌNH')):
     fm.append(PB); fm.append(para(run(title,sz=28,b=True),jc='center',after=200))
     for k,t,name in caps:

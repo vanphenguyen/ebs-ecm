@@ -2,8 +2,8 @@
 # Quy ước: ('h1'|'h2'|'h3', text) tiêu đề; ('p', text) đoạn văn; ('b', text) gạch đầu dòng;
 # ('tbl', [tiêu đề cột], [[ô,...],...], [độ rộng dxa]); ('cap', text) chú thích bảng; ('ref', text); ('eq', text)
 
-TITLE = ("Nghiên cứu giải pháp chuẩn hóa dữ liệu và so khớp tên nhằm giảm cảnh báo sai "
-         "trong sàng lọc cấm vận giao dịch thanh toán quốc tế tại ngân hàng thương mại Việt Nam")
+TITLE = ("Nghiên cứu giải pháp chuẩn hóa dữ liệu và so khớp tên nhằm giảm cảnh báo sai trong sàng lọc "
+         "cấm vận (Sanctions Screening) giao dịch thanh toán quốc tế tại ngân hàng thương mại Việt Nam")
 TITLE_EN = ("Data standardization and name matching solutions for reducing false positives "
             "in sanctions screening of international payments at Vietnamese commercial banks")
 
@@ -33,9 +33,9 @@ tbl(["Mục", "Nội dung"], [
 
 # ---------------------------------------------------------------- 1. TÓM TẮT
 h1("1. TÓM TẮT")
-p("Sàng lọc cấm vận là khâu kiểm soát bắt buộc đối với ngân hàng tham gia thanh toán quốc tế: mọi bên trong điện thanh toán phải được "
+p("Sàng lọc cấm vận (Sanctions Screening), cụ thể là sàng lọc giao dịch (Transaction Screening), là khâu kiểm soát bắt buộc trong hệ thống phòng, chống rửa tiền (AML) của ngân hàng: mọi bên trong điện thanh toán phải được "
   "đối chiếu với các danh sách cấm vận trước khi giao dịch được xử lý. "
-  "Thoạt nhìn đây chỉ là so sánh tên; thực tế, với dữ liệu khách hàng Việt Nam, đó là một bài toán "
+  "Thực tế, với dữ liệu khách hàng Việt Nam, đó là một bài toán "
   "phân giải thực thể trên dữ liệu kém chất lượng: tên và địa chỉ bị ghép chung trong trường văn bản tự do, tên đường mang tên danh nhân, "
   "dấu tiếng Việt bị lược bỏ khiến nhiều tên khác nhau trùng thành một, cùng một tên có nhiều dạng mã hóa và chính tả, họ người Việt "
   "phân bố rất lệch, địa chỉ thay đổi theo đợt sắp xếp đơn vị hành chính năm 2025. Cách làm đơn giản như bỏ dấu rồi so sánh vừa sinh nhiều "
@@ -44,7 +44,7 @@ p("Đề tài đề xuất mô hình sàng lọc đa tầng thích ứng với d
   "trường tự do bằng mẫu để tách tên khỏi địa chỉ; chuẩn hóa ngữ nghĩa dựa trên bảng tham chiếu; phân cụm đa khóa kết hợp khóa ngữ âm tiếng Việt; "
   "so khớp nâng cao nhiều phép so sánh với luật ưu tiên và băng điểm; chấm điểm kết hợp thuộc tính phụ và danh sách loại trừ có kiểm soát. "
   "Mô hình được hiện thực trên Oracle Enterprise Data Quality, đánh giá trên 10 triệu cặp tên, địa chỉ đã khử định danh "
-  "tại Ngân hàng TMCP Quân đội, với mục tiêu giảm ít nhất 30% cảnh báo sai trong khi duy trì Recall không thấp hơn 99%.")
+  "tại Ngân hàng TMCP Quân đội, nhằm giảm ít nhất 30% cảnh báo sai, giữ Recall từ 99%.")
 B.append(('kw', "sàng lọc cấm vận; so khớp tên mờ; cảnh báo sai; tên tiếng Việt; phân cụm; Oracle EDQ; SWIFT; ISO 20022"))
 
 # ---------------------------------------------------------------- 2. TỔNG QUAN
@@ -732,6 +732,7 @@ REFS = [
 
 ABBR = [
  ("AML", "Anti-Money Laundering: phòng, chống rửa tiền"),
+ ("Customer Screening", "Sàng lọc khách hàng theo danh sách khi mở tài khoản và rà soát định kỳ"),
  ("BIC", "Business Identifier Code: mã định danh ngân hàng trong mạng SWIFT"),
  ("BPMN", "Business Process Model and Notation: ký pháp mô hình hóa quy trình"),
  ("CBPR+", "Cross-border Payments and Reporting Plus: chuẩn điện ISO 20022 cho thanh toán xuyên biên giới"),
@@ -749,8 +750,11 @@ ABBR = [
  ("NYDFS", "New York State Department of Financial Services: Sở Dịch vụ Tài chính New York"),
  ("OEDQ", "Oracle Enterprise Data Quality: nền tảng chất lượng dữ liệu của Oracle"),
  ("OFAC", "Office of Foreign Assets Control: Văn phòng Kiểm soát Tài sản nước ngoài, Bộ Tài chính Hoa Kỳ"),
+ ("Sanctions Screening", "Sàng lọc cấm vận: đối chiếu khách hàng, giao dịch với danh sách trừng phạt"),
  ("SDN", "Specially Designated Nationals and Blocked Persons List: danh sách đối tượng bị chỉ định đặc biệt của OFAC"),
  ("SWIFT", "Society for Worldwide Interbank Financial Telecommunication: Hiệp hội Viễn thông Tài chính Liên ngân hàng Toàn cầu"),
+ ("Transaction Screening", "Sàng lọc giao dịch: sàng lọc cấm vận các bên trong điện thanh toán theo thời gian thực"),
+ ("Transaction Monitoring", "Giám sát giao dịch: phát hiện hành vi giao dịch đáng ngờ, không thuộc phạm vi đề tài"),
  ("TCVN", "Tiêu chuẩn Việt Nam"),
  ("TP, TN", "True Positive, True Negative: phát hiện đúng, bỏ qua đúng"),
  ("UN", "United Nations: Liên Hợp Quốc"),

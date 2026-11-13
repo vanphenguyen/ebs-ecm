@@ -9,7 +9,8 @@
 
 ## Đề tài (tên hiện hành)
 Nghiên cứu giải pháp chuẩn hóa dữ liệu và so khớp tên nhằm giảm cảnh báo sai trong sàng lọc
-cấm vận giao dịch thanh toán quốc tế tại ngân hàng thương mại Việt Nam.
+cấm vận (Sanctions Screening) giao dịch thanh toán quốc tế tại ngân hàng thương mại Việt Nam.
+- Nghiệp vụ: Sanctions Screening, nhánh Transaction Screening (không phải Transaction Monitoring).
 - Tên tiếng Anh: Data standardization and name matching solutions for reducing false positives
   in sanctions screening of international payments at Vietnamese commercial banks.
 - MB là đơn vị phối hợp, nơi thử nghiệm và đánh giá (không đưa vào tên đề tài).
