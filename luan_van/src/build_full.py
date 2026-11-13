@@ -75,6 +75,18 @@ def IMG(f,cap,wcm):
        f'<pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="{cx}" cy="{cy}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>')
     return para(d,jc='center',before=120,after=40,line=240,keep=True)+para(run(cap,sz=24,i=True),jc='center',before=0,after=160)
 
+# auto numbering of tables and figures: captions "Bảng {key}." / "Hình {key}."
+_num={}; _cnt={'Bảng':0,'Hình':0}
+for blk in K.B:
+    t=blk[1] if blk[0]=='cap' else (blk[2] if blk[0]=='img' else None)
+    if t:
+        m=re.match(r'(Bảng|Hình) \{(\w+)\}',t)
+        if m: _cnt[m.group(1)]+=1; _num[m.group(2)]=str(_cnt[m.group(1)])
+def _fill(x):
+    if isinstance(x,str): return re.sub(r'\{(\w+)\}',lambda m:_num.get(m.group(1),m.group(0)),x)
+    if isinstance(x,list): return [_fill(i) for i in x]
+    return x
+K.B=[tuple(_fill(list(b))) for b in K.B]
 out=[]; toc=[]
 for blk in K.B:
     k=blk[0]

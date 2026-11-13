@@ -33,3 +33,10 @@ cấm vận giao dịch thanh toán quốc tế tại ngân hàng thương mại
 - `../Thuyet_minh_NAFOSTED_Sanctions_Screening.docx`: thuyết minh theo mẫu NAFOSTED 02.
 - `../De_xuat_huong_nghien_cuu_Nguyen_Van_Phe.docx`: bản đề xuất 2 trang gửi thầy.
 - `src/`: mẫu gốc và mã sinh tài liệu (content.py chứa nội dung thuyết minh).
+
+## Định hướng làm nổi bật (đã đưa vào bản PPNCKH)
+- Bài toán được trình bày như phân giải thực thể trên dữ liệu kém chất lượng, không phải so sánh chuỗi đơn giản.
+- Mô hình sàng lọc đa tầng 6 tầng: chuẩn hóa mã hóa và ký tự; phân tích cấu trúc, nhận diện mẫu; chuẩn hóa ngữ nghĩa;
+  phân cụm đa khóa và khóa ngữ âm tiếng Việt; so khớp nâng cao có luật ưu tiên, băng điểm; chấm điểm với thuộc tính phụ, danh sách loại trừ.
+- Không nhắc tên giải pháp thương mại sàng lọc giao dịch của Oracle trong bài; chỉ nói nền tảng OEDQ.
+- Bảng, hình được đánh số tự động: dùng nhãn {b_ten}, {h_ten} trong full_content.py.
