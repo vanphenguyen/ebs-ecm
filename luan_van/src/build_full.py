@@ -45,7 +45,12 @@ def H(t,lvl):
     sz={1:28,2:26,3:26}[lvl]; it= lvl==3
     c=f'<w:bookmarkStart w:id="{900+bm[0]}" w:name="{name}"/>{run(t,sz=sz,b=True,i=it)}<w:bookmarkEnd w:id="{900+bm[0]}"/>'
     return para(c,jc='left',before=240 if lvl==1 else 160,after=100,style=f'Heading{lvl}',keep=True,extra='<w:outlineLvl w:val="%d"/>'%(lvl-1) if False else ''), name
-def CAP(t): return para(run(t,sz=24,b=True,i=False),jc='center',before=120,after=60,keep=True)
+caps=[]
+def _bm(t,kind):
+    bm[0]+=1; name=f'_Toc9000{bm[0]:03d}'; caps.append((kind,t,name)); toc.append((9,t,name))
+    return f'<w:bookmarkStart w:id="{900+bm[0]}" w:name="{name}"/>', f'<w:bookmarkEnd w:id="{900+bm[0]}"/>'
+def CAP(t):
+    a,b_=_bm(t,'b'); return para(a+run(t,sz=24,b=True,i=False)+b_,jc='center',before=120,after=60,keep=True)
 def EQ(t): return para(run(t,i=True),jc='center',before=60,after=60)
 bd='<w:tblBorders>'+''.join(f'<w:{s} w:val="single" w:sz="4" w:space="0" w:color="000000"/>' for s in ['top','left','bottom','right','insideH','insideV'])+'</w:tblBorders>'
 def TBL(head,rows,w):
@@ -73,7 +78,8 @@ def IMG(f,cap,wcm):
        f'<pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:nvPicPr><pic:cNvPr id="{5000+n}" name="fig{n}.png"/><pic:cNvPicPr/></pic:nvPicPr>'
        f'<pic:blipFill><a:blip r:embed="{rid}"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill>'
        f'<pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="{cx}" cy="{cy}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>')
-    return para(d,jc='center',before=120,after=40,line=240,keep=True)+para(run(cap,sz=24,i=True),jc='center',before=0,after=160)
+    a,b_=_bm(cap,'h')
+    return para(d,jc='center',before=120,after=40,line=240,keep=True)+para(a+run(cap,sz=24,i=True)+b_,jc='center',before=0,after=160)
 
 # auto numbering of tables and figures: captions "Bảng {key}." / "Hình {key}."
 _num={}; _cnt={'Bảng':0,'Hình':0}
@@ -92,7 +98,7 @@ for blk in K.B:
     k=blk[0]
     if k in('h1','h2','h3'):
         lvl=int(k[1]);
-        if lvl==1 and blk[1].startswith(('2.','3.','4.','5.','6.','7.')): out.append(PB)
+        if lvl==1 and not blk[1].startswith('THÔNG TIN CHUNG'): out.append(PB)
         xml,name=H(blk[1],lvl); out.append(xml)
         if lvl<=2: toc.append((lvl,blk[1],name))
     elif k=='p': out.append(P(blk[1]))
@@ -108,13 +114,22 @@ for i,r in enumerate(K.REFS,1): out.append(para(run(f'[{i}] '+r),ind='<w:ind w:l
 # TOC
 tl=[para(run('MỤC LỤC',sz=28,b=True),jc='center',after=200)]
 TAB='<w:tabs><w:tab w:val="right" w:leader="dot" w:pos="9016"/></w:tabs>'
-for n,(lvl,t,name) in enumerate(toc):
+toc_h=[e for e in toc if e[0]<=2]
+for n,(lvl,t,name) in enumerate(toc_h):
     pg=str(PAGES.get(name,''))
     begin='<w:r><w:fldChar w:fldCharType="begin" w:dirty="true"/></w:r><w:r><w:instrText xml:space="preserve"> TOC \\o "1-2" \\h \\z \\u </w:instrText></w:r><w:r><w:fldChar w:fldCharType="separate"/></w:r>' if n==0 else ''
-    end='<w:r><w:fldChar w:fldCharType="end"/></w:r>' if n==len(toc)-1 else ''
+    end='<w:r><w:fldChar w:fldCharType="end"/></w:r>' if n==len(toc_h)-1 else ''
     c=begin+f'<w:hyperlink w:anchor="{name}" w:history="1">'+run(t,sz=26,b=(lvl==1))+f'<w:r>{rpr()}<w:tab/></w:r>'+run(pg,sz=26,b=(lvl==1))+'</w:hyperlink>'+end
     tl.append(para(c,jc='left',after=30,line=252,style=f'TOC{lvl}',ind=f'<w:ind w:left="{0 if lvl==1 else 284}"/>',extra='').replace('<w:pPr>','<w:pPr>'+'' ,1).replace('<w:jc w:val="left"/>','<w:jc w:val="left"/>'+'',1).replace(f'<w:pStyle w:val="TOC{lvl}"/>',f'<w:pStyle w:val="TOC{lvl}"/>{TAB}'))
-newbody=cover+PB+''.join(tl)+PB+''.join(out)+sect+'</w:body></w:document>'
+fm=[PB,para(run('DANH MỤC TỪ VIẾT TẮT',sz=28,b=True),jc='center',after=200),TBL(['Từ viết tắt','Ý nghĩa'],[list(a) for a in K.ABBR],[2000,7000])]
+for kind,title in (('b','DANH MỤC BẢNG'),('h','DANH MỤC HÌNH')):
+    fm.append(PB); fm.append(para(run(title,sz=28,b=True),jc='center',after=200))
+    for k,t,name in caps:
+        if k!=kind: continue
+        pg=str(PAGES.get(name,''))
+        c=f'<w:hyperlink w:anchor="{name}" w:history="1">'+run(t,sz=26)+f'<w:r>{rpr()}<w:tab/></w:r>'+run(pg,sz=26)+'</w:hyperlink>'
+        fm.append(para(c,jc='left',after=40,line=264,ind='<w:ind w:left="0"/>',extra='').replace('<w:pPr>','<w:pPr>'+TAB,1))
+newbody=cover+PB+''.join(tl)+''.join(fm)+PB+''.join(out)+sect+'</w:body></w:document>'
 open(DOC,'w',encoding='utf8').write(head+newbody); open(RELS,'w',encoding='utf8').write(rels)
 json.dump([(n,t) for _,t,n in toc],open(sys.argv[2]+'/toc.json','w'),ensure_ascii=False)
 print('ok', len(toc))

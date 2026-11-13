@@ -2,7 +2,8 @@ import json,subprocess,sys,re
 pdf,tocf=sys.argv[1],sys.argv[2]
 n=int(re.search(r'Pages:\s+(\d+)',subprocess.run(['pdfinfo',pdf],capture_output=True,text=True).stdout).group(1))
 texts=[re.sub(r'\s+',' ',subprocess.run(['pdftotext','-f',str(i),'-l',str(i),'-layout',pdf,'-'],capture_output=True,text=True).stdout) for i in range(1,n+1)]
-toc=json.load(open(tocf)); res={}; start=3
+toc=json.load(open(tocf)); res={}
+start=next(i for i in range(1,n+1) if 'Tên tiếng Anh' in texts[i-1])
 for name,t in toc:
     key=re.sub(r'\s+',' ',t)[:35]
     for i in range(start,n+1):
